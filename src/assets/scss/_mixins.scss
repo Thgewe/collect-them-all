@@ -1,0 +1,7 @@
+@mixin wrapper {
+    padding-left: rem(20px);
+    padding-right: rem(20px);
+    margin: 0 auto;
+    max-width: rem(1280px);
+    min-width: rem(320px);
+}

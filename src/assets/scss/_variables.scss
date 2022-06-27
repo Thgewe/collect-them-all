@@ -1,1 +1,26 @@
+// colors
+$riverBed: #455363;
+$geyser: #CFD8DC;
+$primaryCerulean: #03A9F4;
+$pattensBlue: #E1F5FE;
+$bahamaBlue: #01579B;
+$lochmara: #0277BD;
+$bunker: #0D1117;
+$mercury: #e9e9e9;
+$silverChalice: #9e9e9e;
+$orangePeel: #FF9800;
+$cuttySark: #546E7A;
+// font
+
 $font-size-base: 16px;
+
+$font-size-default: rem(16px);
+
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+
+// breakpoints 
+
+$screen-tablet:  "min-width: 768px";
+$screen-desktop: "min-width: 1280px";

@@ -1,10 +1,15 @@
 <template>
-    <nav>
-        <router-link to="/">Home</router-link>
-    </nav>
+    <Header></Header>
     <router-view/>
 </template>
-
+<script>
+import Header from '@/components/Header.vue'
+export default {
+    components: {
+        Header: Header,
+    }
+}
+</script>
 <style lang="scss">
-
+// 
 </style>

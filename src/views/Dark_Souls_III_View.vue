@@ -1,14 +1,15 @@
 <template>
-  <div class="home">
-  </div>
+    <div class="ds3">
+        
+    </div>
 </template>
 
 <script>
-
     export default {
-        name: 'HomeView',
+        name: 'Dark_Souls_III_View',
     }
 </script>
+
 <style lang="scss" scoped>
 
 </style>
