@@ -14,7 +14,15 @@ $cuttySark: #546E7A;
 
 $font-size-base: 16px;
 
+$font-size-small: rem(14px);
 $font-size-default: rem(16px);
+$font-size-big: rem(20px);
+$font-size-huge: rem(24px);
+
+$title-size-small: rem(20px);
+$title-size-medium: rem(26px);
+$title-size-big: rem(30px);
+$title-size-huge: rem(36px);
 
 $font-weight-regular: 400;
 $font-weight-medium: 500;
@@ -24,3 +32,7 @@ $font-weight-bold: 700;
 
 $screen-tablet:  "min-width: 768px";
 $screen-desktop: "min-width: 1280px";
+
+// paddings 
+
+$padding-default: rem(20px);
