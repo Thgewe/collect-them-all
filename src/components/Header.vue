@@ -25,6 +25,8 @@
         box-shadow: 0px 7px 10px -4px rgba(34, 60, 80, 0.2);
         position: sticky;
         top: 0;
+        z-index: 1000;
+        margin-bottom: $margin-default;
         &__wrapper {
             @include wrapper;
         }
@@ -38,6 +40,12 @@
         &__logo {
             width: rem(40px);
             height: rem(40px);
+        }
+
+        @media screen and (#{$screen-tablet}) {
+            & {
+                margin-bottom: $margin-big;
+            }
         }
     }
 </style>

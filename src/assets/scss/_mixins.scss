@@ -5,3 +5,18 @@
     max-width: rem(1280px);
     min-width: rem(320px);
 }
+
+@mixin list-style-circle {
+    position: relative;
+    z-index: -1;
+    &::before {
+        content: '';
+        width: rem(5px);
+        height: rem(5px);
+        border: rem(1px) solid $primaryCerulean;
+        border-radius: 50%;
+        position: absolute;
+        left: rem(-14px);
+        top: rem(8px);
+    }
+}

@@ -73,7 +73,7 @@
             &__burger {
                 display: none;
             }
-            &__item {
+            &__item { 
                 & > .router-link-active {
                     color: $orangePeel;
                 }

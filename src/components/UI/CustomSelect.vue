@@ -1,16 +1,21 @@
 <template>
-    <div class="burger">
-        <div :class="buttonClass" @click="onClick">
-            <img class="burger__icon" src="@/assets/images/icons/burger.svg">
+    <div class="select" @mouseleave="onMouseLeave" ref="select">
+        <div class="select__header" @click="onHeaderClick">
+            <div class="select__current">{{ this.currentText }}</div>
+            <div class="select__arrow">
+                <span></span>
+                <span></span>
+            </div>
         </div>
-        <div :class="listClass">
-            <div class="burger__covering" @click="onClick"></div>
-            <div
-                class="burger__item"
-                v-for="value in values"
-                :key="value.name"
+        <div class="select__body" ref="body">
+            <div 
+                @click="onItemClick" 
+                v-for="option in formatOptions(rawOptions)" 
+                :key="option.value"
+                :value="option.value"
+                :class="option.active"
             >
-                <router-link :to="value.value" @click="onClick">{{value.name}}</router-link>
+                {{ option.value }}
             </div>
         </div>
     </div>
@@ -20,89 +25,120 @@
     export default {
         data() {
             return {
-                active: false,
-                buttonClass: 'burger__button',
-                listClass: 'burger__list',
+                currentElem: '',
+                currentText: 'select',
             }
         },
-        name: 'burger',
+        name: 'custom-select',
         props: {
-            values: Array[String],
+            rawOptions: Array[String],
         },
         methods: {
-            onClick() {
-                this.active = !this.active;
+            formatOptions(array) {
+                const newArr = [];
+                for (let i = 0; i < array.length; i++) {
+                    const obj = {
+                        value: array[i],
+                        active: 'select__item',
+                        // to: this.$router.currentRoute.value.path.match(/^\/.*(?=\/.*)|^\/.*/) + '/' + array[i],
+                    }
+                    // if (i === 0) {
+                    //     obj.active = 'select__item select__item--active';
+                    //     newArr.push(obj);
+                    //     continue;
+                    // }
+                    newArr.push(obj);
+                }
+                return newArr;
+            },
+            onMouseLeave(e) {
+                e.currentTarget.classList.remove('select--active');
+            },
+            onHeaderClick(e) {
+                e.currentTarget.parentNode.classList.toggle('select--active');
+            },
+            onItemClick(e) {
+                if (this.currentText === 'select') {
+
+                } else {
+                    this.currentElem.classList.remove('select__item--active');
+                }
+                this.currentElem = e.currentTarget;
+                this.currentElem.classList.add('select__item--active');
+                this.currentText = this.currentElem.innerText;
+                this.$refs.select.classList.remove('select--active');
+                this.$router.push(this.$router.currentRoute.value.path.match(/^\/.*(?=\/.*)|^\/.*/) + '/' + e.currentTarget.innerText)
             }
         },
-        watch: {
-            active: function () {
-                this.buttonClass = this.active ? 'burger__button burger__button--active' : 'burger__button';
-                this.listClass = this.active ? 'burger__list burger__list--active' : 'burger__list';
-            }
+        mounted() {
+            // this.currentElem = this.$refs.body.children[0];
         }
     }
 </script>
 
 <style lang="scss" scoped>
-    .burger {   
+    .select {
+        background-color: white;
+        overflow: hidden;
         position: relative;
-
-        &__button {
-            transition: 0.4s all;
-            width: rem(40px);
-            height: rem(40px);
-            cursor: pointer;
-            &--active {
-                transform: rotate(180deg);
+        max-width: rem(150px);
+        transition: 0.4s all;
+        margin: 0 auto;
+        &--active {
+            overflow: visible;
+            & .select__header {
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+            & .select__arrow {
+                transform: rotateX(180deg);
             }
         }
-        &__icon {
-            display: block;
+        &__header {
+            display: flex;
             width: 100%;
+            justify-content: space-between;
+            border: rem(1px) solid $primaryCerulean;
+            border-radius: rem(5px);
+            padding: rem(5px) rem(10px);
         }
-        &__list {
-            position: absolute;
-            width: rem(200px);
-            top: rem(-10px);
-            right: rem(-20px);
-            padding: rem(10px);
-            height: 100vh;
-            background-color: $cuttySark;
-            transform: translate(110%);
-            transition: 0.3s all;
-            &--active {
-                transform: translate(0);
-                & .burger__covering {
-                    display: block;
-                }
+        &__arrow {
+            position: relative;
+            transition: 0.4s all;
+            & span {
+                display: block;
+                width: rem(16px);
+                height: rem(3px);
+                position: absolute;
+                top: rem(12px);
+                right: rem(8px);
+                background-color: $orangePeel;
+            }
+            & > span {
+                transform: translate(58%) rotate(-45deg);
+            }
+            & span + span {
+                transform: rotate(45deg);
             }
         }
-        &__covering {
+        &__body {
+
+            border-left: 1px solid $primaryCerulean;
+            border-right: 1px solid $primaryCerulean;
+            border-bottom: 1px solid $primaryCerulean;
             position: absolute;
-            top: 0;
-            left: 0;
-            content: '';
-            background-color: $bunker;
-            opacity: 0.2;
-            width: rem(1000px);
-            transform: translate(-100%);
-            height: 100vh;
-            display: none;
+            width: 100%;
+            top: 100%;
         }
         &__item {
-            & + & {
-                &::before {
-                    content: '';
-                    display: block;
-                    width: 100%;
-                    height: rem(1px);
-                    background-color: $primaryCerulean;
-                    margin-top: rem(5px);
-                    margin-bottom: rem(5px);
-                }
+            padding: rem(5px) rem(10px);
+            cursor: pointer;
+            background-color: white;
+            &:hover {
+                background-color: $mercury;
             }
-            & > .router-link-active {
-                color: $orangePeel;
+            &--active {
+                display: none;
             }
         }
     }
