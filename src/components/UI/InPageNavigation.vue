@@ -15,19 +15,6 @@
 
 <script>
     export default {
-        data() {
-            return {
-                options: [
-                    'description',
-                    'rings',
-                    'pyromancy',
-                    'sorcery',
-                    'miracles',
-                    'infusions',
-                    'gestures',
-                ]
-            }
-        },
         name: 'nav-in',
         props: {
             links: Array[String],

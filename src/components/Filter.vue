@@ -35,7 +35,6 @@
         align-items: center;
         margin-bottom: rem(20px);
         &__button {
-            display: block;
             cursor: pointer;
             width: 100%;
             max-width: rem(100px);

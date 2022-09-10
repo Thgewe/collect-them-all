@@ -4,6 +4,7 @@ import Navbar from '@/components/UI/Navbar';
 import Burger from '@/components/UI/Burger';
 import InPageNavigation from '@/components/UI/InPageNavigation';
 import CustomSelect from '@/components/UI/CustomSelect';
+import CustomCheckbox from "@/components/UI/CustomCheckbox";
 
 export default [
     Logo,
@@ -12,4 +13,5 @@ export default [
     Burger,
     InPageNavigation,
     CustomSelect,
+    CustomCheckbox,
 ]

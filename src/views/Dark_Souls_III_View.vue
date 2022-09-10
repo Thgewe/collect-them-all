@@ -1,9 +1,8 @@
 <template>
     <div class="ds3">
         <div class="ds3__rings">
-            <!-- replace -->
             <nav-in :links="links"></nav-in>
-            <Filter :options="options" @changeStatus="changeStatus"></Filter>
+            <Filter :options="options" @changeStatus="changeOptionStatus"></Filter>
             <router-view :ringOptions="options"></router-view>
         </div>
     </div>
@@ -51,7 +50,8 @@
             Filter: Filter,
         },
         methods: {
-            changeStatus(text) {
+            // TODO move it to a separate component
+            changeOptionStatus(text) {
                 const onAllOffOther = () => {
                     this.options[0].status = true;
                     this.options[1].status = false;
@@ -61,15 +61,26 @@
                 }
                 const checkIfAll = () => {
                     if (
-                        this.options[1].status &
-                        this.options[2].status &
-                        this.options[3].status &
+                        this.options[1].status &&
+                        this.options[2].status &&
+                        this.options[3].status &&
                         this.options[4].status
                     ) {
                         onAllOffOther();
                     } else {
                         this.options[0].status = false;
                     }
+                }
+                const checkIfZero = () => {
+                  if (
+                      !this.options[0].status &&
+                      !this.options[1].status &&
+                      !this.options[2].status &&
+                      !this.options[3].status &&
+                      !this.options[4].status
+                  ) {
+                    this.options[0].status = true;
+                  }
                 }
                 switch(text) {
                     case 'All':
@@ -78,18 +89,22 @@
                     case 'left':
                         this.options[1].status = !this.options[1].status;
                         checkIfAll();
+                        checkIfZero();
                         break;
                     case 'NG':
                         this.options[2].status = !this.options[2].status;
                         checkIfAll();
+                        checkIfZero();
                         break;
                     case 'NG+':
                         this.options[3].status = !this.options[3].status;
                         checkIfAll();
+                        checkIfZero();
                         break;
                     case 'NG++':
                         this.options[4].status = !this.options[4].status;
                         checkIfAll();
+                        checkIfZero();
                         break;
                 }
             },

@@ -8,9 +8,9 @@
             </div>
         </div>
         <div class="select__body" ref="body">
-            <div 
-                @click="onItemClick" 
-                v-for="option in formatOptions(rawOptions)" 
+            <div
+                @click="onItemClick"
+                v-for="option in formatOptions(rawOptions)"
                 :key="option.value"
                 :value="option.value"
                 :class="option.active"

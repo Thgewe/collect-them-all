@@ -1,16 +1,18 @@
 <template>
     <div :class="ringClass">
         <div class="ring__header">
-            <a :href="this.$store.state.BASE_URL + this.href" class="ring__link">
-                <img class="ring__img" :src="this.img"/>
+            <!-- The image is used for mobile resolution -->
+            <a title="wiki" :href="this.$store.state.BASE_URL + this.href" class="ring__link">
+                <img class="ring__img" :src="this.img" :alt="this.name"/>
             </a>
-            <a :href="this.$store.state.BASE_URL + this.href" class="ring__link">
+            <a title="wiki" :href="this.$store.state.BASE_URL + this.href" class="ring__link">
                 <div class="ring__name">{{this.name}}</div>
             </a>
         </div>
         <div class="ring__content">
-            <a :href="this.$store.state.BASE_URL + this.href" class="ring__link">
-                <img class="ring__img" :src="this.img"/>
+            <!-- The image is used for tablet and desktop resolution -->
+            <a title="wiki" :href="this.$store.state.BASE_URL + this.href" class="ring__link">
+                <img class="ring__img" :src="this.img" :alt="this.name"/>
             </a>
             <div class="ring__descr">
                 <div class="ring__effect">
@@ -20,50 +22,58 @@
                 <div class="ring__availability">
                     <div class="ring__availability-title">Availability:</div>
                     <p class="ring__availability-text" v-for="item in availability" :key="item">{{ item }}</p>
-                    <div>{{this.index}}</div>
                 </div>
             </div>
         </div>
         <div class="ring__bottom">
-            <input type="checkbox" @change="onChangeReceived">
-            <input type="checkbox" @change="onChangeVisibleDescr">
+            <CustomCheckbox
+                @change-active="onChangeReceived"
+                :is-active="this.received"
+                :label="'received'"
+                :inputId="this.name"
+            />
+            <CustomCheckbox
+                @change-active="onChangeVisibleDescr"
+                :is-active="this.contentHidden"
+                :label="'hide description'"
+                :inputId="this.name"
+            />
         </div>
     </div>
 </template>
 
 <script>
+    import CustomCheckbox from "@/components/UI/CustomCheckbox";
     export default {
+        components: {CustomCheckbox},
         data() {
-            return {
-                // received: false,
-                contentHidden: false,
-                ringClass: 'ring',
-            }
-        },
-        props: {
-            name: String,
-            img: String,
-            effect: String,
-            availability: Array[String],
-            href: String,
-            index: Number,
-        },
-        methods: {
-            onChangeReceived() {
-                // this.received = !this.received;
-                
-                // this.ringClass =
-                //     this.received ? this.ringClass + ' ring--received' :
-                //         this.contentHidden ? 'ring ring--hidden' : 'ring';
-                this.$emit('received', this.index);
+                return {
+                    ringClass: this.contentHidden ? 'ring ring--hidden' :  'ring',
+                }
             },
-            onChangeVisibleDescr() {
-                this.contentHidden = !this.contentHidden;
-                this.ringClass =
-                    this.contentHidden ? this.ringClass + ' ring--hidden' :
-                        this.received ? 'ring ring--received' : 'ring';
+            props: {
+                name: String,
+                img: String,
+                effect: String,
+                availability: Array[String],
+                href: String,
+                index: Number,
+                received: Boolean,
+                contentHidden: Boolean,
+            },
+            methods: {
+                onChangeReceived() {
+                    this.$emit('received', this.index);
+                },
+                onChangeVisibleDescr() {
+                    this.$emit('contentHide', this.index)
+                }
+            },
+            watch: {
+                contentHidden: function(newVal, prevVal) {
+                    this.ringClass = newVal ? 'ring ring--hidden' :  'ring';
+                }
             }
-        }
     }
 </script>
 

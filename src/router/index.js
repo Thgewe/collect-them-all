@@ -1,8 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
-// import DarkSouls_III_View from '@/views/Dark_Souls_III_View.vue'
-// import DarkSouls_II_View from '@/views/Dark_Souls_II_View.vue'
-// import DarkSouls_View from '@/views/Dark_Souls_View.vue'
 const DarkSouls_III_View = () => import('@/views/Dark_Souls_III_View.vue');
 const DarkSouls_II_View = () => import('@/views/Dark_Souls_II_View.vue');
 const DarkSouls_View = () => import('@/views/Dark_Souls_View.vue');
@@ -25,11 +22,13 @@ const routes = [
     children: [
         {
             path: '',
+            redirect: { name: 'rings'},
             component: PageDescription,
             replace: true
         },
         {
             path: 'rings',
+            name: 'rings',
             component: Rings,
             replace: true
         },

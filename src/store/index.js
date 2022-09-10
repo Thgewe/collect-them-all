@@ -385,7 +385,8 @@ export default createStore({
                 {
                     "name": "Darkmoon Ring",
                     "href": "/wiki/Darkmoon_Ring",
-                    "img": "https://static.wikia.nocookie.net/darksouls/images/f/f6/Darkmoon_Ring.png/revision/latest/scale-to-width-down/100?cb=20160612045044",
+                    // placeholder
+                    "img": "https://steamuserimages-a.akamaihd.net/ugc/964232955159881801/C8CA11EC8AD47B37C837B4E9BC2B83947BC8C41F/",
                     "availability": ["Reward for reaching Rank 1 in the Blade of the Darkmoon covenant. Reaching this rank requires giving ten Proof of a Concord Kept to Company Captain Yorshka."],
                     "effect": "Grants two additional Attunement slots while equipped."
                 },
